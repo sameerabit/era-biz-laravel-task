@@ -11,16 +11,28 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductImageResource;
 use App\Http\Requests\UpdateProductImageRequest;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-
-        return ProductResource::collection(Product::paginate(20));
+        $productQuery = Product::query();
+        if ($request->name) {
+            $productQuery->where('name', $request->name);
+        }
+        if ($request->description) {
+            $productQuery->orWhere('description', 'like', "%$request->description%");
+        }
+        if ($request->min_price && $request->max_price) {
+            $productQuery->whereBetween('price', [$request->min_price, $request->max_price]);
+            $productQuery->orderBy('price', 'ASC');
+        }
+        $products = $productQuery->paginate();
+        return ProductResource::collection($products);
     }
 
     /**
