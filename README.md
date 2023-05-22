@@ -2,6 +2,10 @@
 
 A single restful endpoint for managing product
 
+## Dependencies
+
+Docker should be there on your machine.
+
 ## How to run this application
 
 1. Clone the project
@@ -15,8 +19,21 @@ A single restful endpoint for managing product
     docker-compose up --build
 ```
 
-4. After establishing and running docker env on your machine access the app from this url
+4. Open a new terminal window or tab
+
+5. Run docker ps command and find the container name
+
+6. Run the following command on your container
+
+```
+    1. docker exec era_biz_php_fpm composer install
+    2. docker exec era_biz_php_fpm php artisan migrate:fresh --seed
+```
+
+6. After establishing and running docker env on your machine access the app from this url
 
 ```
     http://localhost:8080/
 ```
+
+Cooool !!! Now the application is ready to use.

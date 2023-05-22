@@ -31,6 +31,7 @@ services:
     tty: true
     depends_on:
       - db
+
   db:
     image: postgres:12.13-bullseye
     container_name: postgres_db
