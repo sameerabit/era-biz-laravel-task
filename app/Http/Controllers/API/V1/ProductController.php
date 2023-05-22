@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return ProductResource::collection(Product::paginate());
+        return ProductResource::collection(Product::paginate(20));
     }
 
     /**
@@ -74,9 +74,10 @@ class ProductController extends Controller
         return response($image, 200)->header('Content-Type', Storage::getMimeType($path));
     }
 
-    public function getProductImage($path)
+    public function getProductImage($id)
     {
-        $image = Storage::disk('products')->get($path);
-        return response($image, 200)->header('Content-Type', Storage::getMimeType($path));
+        $product = Product::findOrFail($id);
+        $image = Storage::disk('products')->get($product->image_url);
+        return response($image, 200)->header('Content-Type', Storage::disk('products')->mimeType($product->image_url));
     }
 }
