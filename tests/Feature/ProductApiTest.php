@@ -6,10 +6,13 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProductApiTest extends TestCase
 {
+
+    use RefreshDatabase;
+
     /**
      * A basic test example.
      */
@@ -35,7 +38,7 @@ class ProductApiTest extends TestCase
     {
         $response = $this->postJson('/api/v1/register', [
             'name' => 'Vimal',
-            'email' => fake()->email,
+            'email' => 'viraj@yahoo.com',
             'password' => '123456',
             'password_confirmation' => '123456'
         ]);
@@ -48,6 +51,13 @@ class ProductApiTest extends TestCase
 
     public function test_login_user(): void
     {
+        $this->postJson('/api/v1/register', [
+            'name' => 'Vimal',
+            'email' => 'viraj@yahoo.com',
+            'password' => '123456',
+            'password_confirmation' => '123456'
+        ]);
+        $this->getJson('/api/v1/logout');
         $response = $this->postJson('/api/v1/login', [
             'email' => 'vimal@yahoo.com',
             'password' => '123456',
@@ -84,7 +94,13 @@ class ProductApiTest extends TestCase
 
         $this->actingAs($user);
 
-        $response = $this->getJson('/api/v1/products/5');
+        $this->postJson('/api/v1/products', [
+            'name' => 'Biscuit',
+            'description' => 'Biscuit Test',
+            'price' => '250.32',
+            'image' => UploadedFile::fake()->image('avatar.jpg')
+        ]);
+        $response = $this->getJson('/api/v1/products/1');
         $response
             ->assertStatus(200);
     }
@@ -94,8 +110,13 @@ class ProductApiTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user);
-
-        $response = $this->putJson('/api/v1/products/6', [
+        $this->postJson('/api/v1/products', [
+            'name' => 'Biscuit',
+            'description' => 'Biscuit Test',
+            'price' => '250.32',
+            'image' => UploadedFile::fake()->image('avatar.jpg')
+        ]);
+        $response = $this->putJson('/api/v1/products/1', [
             'name' => 'Biscuit',
             'description' => 'Biscuit Test',
             'price' => '250.32',

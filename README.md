@@ -37,3 +37,15 @@ Docker should be there on your machine.
 ```
 
 Cooool !!! Now the application is ready to use.
+
+7. Import the postman collection from the project root.
+
+```
+    https://github.com/sameerabit/era-biz-laravel-task
+```
+
+8. API tests are written for the products end points. In order to run it try follwing commands.
+
+```
+    docker exec era_biz_php_fpm php artisan test
+```
