@@ -94,6 +94,8 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $image = Storage::disk('products')->get($product->image_url);
-        return response($image, 200)->header('Content-Type', Storage::disk('products')->mimeType($product->image_url));
+        return response($image, 200)
+            ->header('Content-Type', Storage::disk('products')
+                ->mimeType($product->image_url));
     }
 }
