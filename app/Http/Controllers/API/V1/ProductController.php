@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -17,13 +18,6 @@ class ProductController extends Controller
     public function index()
     {
         return ProductResource::collection(Product::paginate());
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
     }
 
     /**
@@ -47,15 +41,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
-    {
-        //
+        return ProductResource::make($product);
     }
 
     /**
@@ -63,7 +49,14 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        // $image_path = $request->file('image')->store('image', 'products');
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price =  $request->price;
+        // $product->image_url = $image_path;
+        $product->save();
+        $product->flush();
+        return response(ProductResource::make($product), Response::HTTP_CREATED);
     }
 
     /**
@@ -71,6 +64,19 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return response()->noContent();
+    }
+
+    public function updateProductImage($id)
+    {
+        $image = Storage::disk('products')->get($path);
+        return response($image, 200)->header('Content-Type', Storage::getMimeType($path));
+    }
+
+    public function getProductImage($path)
+    {
+        $image = Storage::disk('products')->get($path);
+        return response($image, 200)->header('Content-Type', Storage::getMimeType($path));
     }
 }

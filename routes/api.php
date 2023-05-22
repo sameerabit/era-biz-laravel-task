@@ -17,6 +17,7 @@ use App\Http\Controllers\API\V1\ProductController;
 
 Route::prefix('v1')->group(function () {
     Route::apiResource('/products', ProductController::class);
+    Route::get('/product-image/{path}', [ProductController::class, 'getProductImage']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
