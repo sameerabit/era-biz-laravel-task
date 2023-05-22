@@ -27,7 +27,8 @@ Docker should be there on your machine.
 
 ```
     1. docker exec era_biz_php_fpm composer install
-    2. docker exec era_biz_php_fpm php artisan migrate:fresh --seed
+    2. docker exec era_biz_php_fpm cp .env.example .env
+    3. docker exec era_biz_php_fpm php artisan migrate:fresh --seed
 ```
 
 6. After establishing and running docker env on your machine access the app from this url
