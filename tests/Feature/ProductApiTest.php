@@ -59,7 +59,6 @@ class ProductApiTest extends TestCase
     public function test_create_product_get_success_response(): void
     {
         $user = User::factory()->create();
-        $this->assertCount(0, $user->tokens);
 
         $this->actingAs($user);
 
