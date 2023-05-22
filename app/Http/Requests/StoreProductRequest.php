@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ReCaptcha;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreProductRequest extends FormRequest
@@ -22,7 +23,7 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "required",
+            "name" => ["required", new ReCaptcha()],
             "description" => "required",
             "price" => "required|decimal:2",
             "image" => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',

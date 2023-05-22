@@ -19,6 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+
         return ProductResource::collection(Product::paginate(20));
     }
 
