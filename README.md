@@ -4,7 +4,7 @@ A single restful endpoint for managing product
 
 ## How to run this application
 
-1. Clone the application
+1. Clone the project
 
 2. Go to terminal and find and go to the project path
 

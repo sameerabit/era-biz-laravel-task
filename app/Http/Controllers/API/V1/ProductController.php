@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Filters\ProductFilter;
 use App\Models\Product;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
@@ -18,20 +19,11 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, ProductFilter $filter)
     {
-        $productQuery = Product::query();
-        if ($request->name) {
-            $productQuery->where('name', $request->name);
-        }
-        if ($request->description) {
-            $productQuery->orWhere('description', 'like', "%$request->description%");
-        }
-        if ($request->min_price && $request->max_price) {
-            $productQuery->whereBetween('price', [$request->min_price, $request->max_price]);
-            $productQuery->orderBy('price', 'ASC');
-        }
-        $products = $productQuery->paginate();
+        $productQuery = Product::filter($filter);
+        $limit = $request->limit ?: env('PAGINATION_LIMIT');
+        $products = $productQuery->paginate($limit);
         return ProductResource::collection($products);
     }
 

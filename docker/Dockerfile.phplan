@@ -14,5 +14,4 @@ RUN  npm update -g npm
 RUN  npm install -g yarn
 RUN  apt -y install libzip-dev
 RUN  apt-get install -y zlib1g-dev libpng-dev libjpeg-dev
-RUN docker-php-ext-configure gd --with-jpeg && \
-    docker-php-ext-install gd
+RUN  docker-php-ext-configure gd --with-jpeg && \docker-php-ext-install gd
