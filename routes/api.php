@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\V1\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\V1\ProductController;
@@ -16,13 +17,22 @@ use App\Http\Controllers\API\V1\ReCaptchaController;
 |
 */
 
-Route::prefix('v1')->group(function () {
-    Route::apiResource('/products', ProductController::class);
-    Route::get('/products/{id}/image', [ProductController::class, 'getProductImage']);
-    Route::post('/products/{id}/image', [ProductController::class, 'updateProductImage']);
-    Route::get('/recaptcha/verify', [ReCaptchaController::class, 'verify']);
-});
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('v1')->group(function () {
+    Route::post('/register', [AuthController::class, 'register']);
+});
+
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::prefix('v1')->group(function () {
+        Route::apiResource('/products', ProductController::class);
+        Route::get('/products/{id}/image', [ProductController::class, 'getProductImage']);
+        Route::post('/products/{id}/image', [ProductController::class, 'updateProductImage']);
+        Route::get('/recaptcha/verify', [ReCaptchaController::class, 'verify']);
+    });
 });
