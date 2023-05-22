@@ -47,7 +47,6 @@ class ProductController extends Controller
             'price' => $request->price,
             'image_url' => $image_path
         ]);
-
         return response(ProductResource::make($product), Response::HTTP_CREATED);
     }
 
@@ -68,7 +67,6 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->price =  $request->price;
         $product->save();
-        $product->flush();
         return response(ProductResource::make($product), Response::HTTP_CREATED);
     }
 

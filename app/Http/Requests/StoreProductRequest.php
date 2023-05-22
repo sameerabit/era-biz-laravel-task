@@ -23,7 +23,7 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ["required", new ReCaptcha()],
+            "name" => "required",
             "description" => "required",
             "price" => "required|decimal:2",
             "image" => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
