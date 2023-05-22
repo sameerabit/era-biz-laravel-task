@@ -6,9 +6,11 @@ use App\Models\Product;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\ProductImageResource;
+use App\Http\Requests\UpdateProductImageRequest;
 
 class ProductController extends Controller
 {
@@ -49,11 +51,9 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        // $image_path = $request->file('image')->store('image', 'products');
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price =  $request->price;
-        // $product->image_url = $image_path;
         $product->save();
         $product->flush();
         return response(ProductResource::make($product), Response::HTTP_CREATED);
@@ -68,10 +68,13 @@ class ProductController extends Controller
         return response()->noContent();
     }
 
-    public function updateProductImage($id)
+    public function updateProductImage(UpdateProductImageRequest $request, $id)
     {
-        $image = Storage::disk('products')->get($path);
-        return response($image, 200)->header('Content-Type', Storage::getMimeType($path));
+        $image_path = $request->file('image')->store('image', 'products');
+        $product = Product::find($id);
+        $product->image_url = $image_path;
+        $product->save();
+        return response(ProductImageResource::make($product), Response::HTTP_CREATED);
     }
 
     public function getProductImage($id)
