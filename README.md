@@ -50,3 +50,9 @@ Cooool !!! Now the application is ready to use.
 ```
     docker exec era_biz_php_fpm php artisan test
 ```
+
+## List of Deliverables
+
+1. Products Endoints.
+2. ReCaptcha token verification endpoint.
+3. Sanctum authentication endpoints.
