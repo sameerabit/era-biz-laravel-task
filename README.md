@@ -45,11 +45,35 @@ Cooool !!! Now the application is ready to use.
     https://github.com/sameerabit/era-biz-laravel-task
 ```
 
-8. API tests are written for the products end points. In order to run it try follwing commands.
+## Testing
+
+API tests are written for the products end points. In order to run it try follwing commands.
 
 ```
     docker exec era_biz_php_fpm php artisan test
 ```
+
+Mind that after running tests, the database is refreshed.
+
+## Tech Stack
+
+This application has used following tech stack.
+
+    ```
+      PHP 8.2, Laravel 10, PosgreSQL, Docker
+    ```
+
+## Design and Trade-offs
+
+    1. Assumed that Recaptcha token is came from the front end user and endpoint has been added to verify the token.
+    2. Default filters have been added to search by product name, description and price between two values.
+    3. Products can be sorted by using sory_by_name and sort_by_price.
+    4. In order to and new filters and sorting mechanism please check the following class.
+    ```
+        app/Filters/ProductFilter.php
+    ```
+    You can extend the ProductFilter class and make your own Filter class to do modification
+    to adhere to the SOLID principles.
 
 ## List of Deliverables
 
