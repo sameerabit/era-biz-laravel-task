@@ -4,7 +4,7 @@ A single restful endpoint for managing product
 
 ## Dependencies
 
-Docker should be there on your machine.
+Docker, Docker Compose
 
 ## How to run this application
 
