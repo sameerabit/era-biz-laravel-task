@@ -39,10 +39,10 @@ Docker should be there on your machine.
 
 Cooool !!! Now the application is ready to use.
 
-7. Import the postman collection from the project root.
+7. Import the postman collection from the project root to test the app with postman.
 
 ```
-    https://github.com/sameerabit/era-biz-laravel-task
+    EraBiz Collection.postman_collection.json
 ```
 
 ## Testing
@@ -57,7 +57,7 @@ Mind that after running tests, the database is refreshed.
 
 ## Tech Stack
 
-This application has used following tech stack.
+This app iss running on a Docker Environment and has used following tech stack.
 
 ```
     PHP 8.2, Laravel 10, PosgreSQL, Docker
@@ -65,10 +65,12 @@ This application has used following tech stack.
 
 ## Design and Trade-offs
 
-1. Assumed that Recaptcha token is came from the front end user and endpoint has been added to verify the token.
+1. Assuming that the ReCaptcha token has come from the front-end user, and the endpoint has been added to verify the token.
 2. Default filters have been added to search by product name, description and price between two values.
 3. Products can be sorted by using sory_by_name and sort_by_price.
 4. In order to and new filters and sorting mechanism please check the following class.
+5. More exceptions can be handled using app/Exceptions/Handler.php , Fore the moment Not Found Execption is the one only handled.
+6. API tests written for products for basic functionalities. You can add more advanced tests.
 
 ```
     app/Filters/ProductFilter.php
