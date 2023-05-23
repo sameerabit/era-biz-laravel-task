@@ -66,11 +66,15 @@ This app iss running on a Docker Environment and has used following tech stack.
 ## Design and Trade-offs
 
 1. Assuming that the ReCaptcha token has come from the front-end user, and the endpoint has been added to verify the token.
-2. Default filters have been added to search by product name, description and price between two values.
-3. Products can be sorted by using sory_by_name and sort_by_price.
-4. In order to and new filters and sorting mechanism please check the following class.
-5. More exceptions can be handled using app/Exceptions/Handler.php , Fore the moment Not Found Execption is the one only handled.
-6. API tests written for products for basic functionalities. You can add more advanced tests.
+2. Instead of device name (token name from front end), a configuration has been added to .env file to generate API token for sanctum.
+    ```
+        AUTH_TOKEN_NAME=era_biz_app
+    ```
+3. Default filters have been added to search by product name, description and price between two values.
+4. Products can be sorted by using sory_by_name and sort_by_price.
+5. In order to and new filters and sorting mechanism please check the following class.
+6. More exceptions can be handled using app/Exceptions/Handler.php , Fore the moment Not Found Execption is the one only handled.
+7. API tests written for products for basic functionalities. You can add more advanced tests.
 
 ```
     app/Filters/ProductFilter.php
@@ -78,6 +82,22 @@ This app iss running on a Docker Environment and has used following tech stack.
 
 You can extend the ProductFilter class and make your own Filter class to do modification
 to adhere to the SOLID principles.
+
+## Configurations
+
+To change the Google Verification V3 keys and secrets, use the .env file and modify the following keys.
+
+```
+GOOGLE_RECAPTCHA_KEY=6LfWVCwmAAAAAOZeQB1Ulyumt2zTlGzyXq50NHKa
+GOOGLE_RECAPTCHA_SECRET=6LfWVCwmAAAAAIc9W3t81nLp_cWVcKHoUqKuJv0M
+```
+
+To change the Pagination limit and Auth token name. check this.
+
+```
+PAGINATION_LIMIT=10
+AUTH_TOKEN_NAME=era_biz_app
+```
 
 ## List of Deliverables
 
