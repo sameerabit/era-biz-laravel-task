@@ -99,6 +99,9 @@ PAGINATION_LIMIT=10
 AUTH_TOKEN_NAME=era_biz_app
 ```
 
+If you want to run the application in MySQL, Just the configure docker environment for
+MySQL and config the .env.
+
 ## List of Deliverables
 
 1. Products Endoints.
