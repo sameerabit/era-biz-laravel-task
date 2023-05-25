@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ReCaptcha;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProductRequest extends FormRequest
@@ -25,6 +26,7 @@ class UpdateProductRequest extends FormRequest
             "name" => "required",
             "description" => "required",
             "price" => "required|decimal:2",
+            "token" => ["required", new ReCaptcha()],
         ];
     }
 }

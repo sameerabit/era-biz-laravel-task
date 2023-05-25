@@ -25,8 +25,9 @@ class StoreProductRequest extends FormRequest
         return [
             "name" => "required",
             "description" => "required",
-            "price" => "required|decimal:2",
+            "price" => "required|numeric",
             "image" => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            "token" => ["required", new ReCaptcha()],
         ];
     }
 }

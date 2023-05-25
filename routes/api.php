@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/products/{id}/image', [ProductController::class, 'getProductImage']);
         Route::post('/products/{id}/image', [ProductController::class, 'updateProductImage']);
         Route::get('/recaptcha/verify', [ReCaptchaController::class, 'verify']);
-
+        Route::get('/check-login', [AuthController::class, 'checkLogin']);
         Route::post('/logout', [AuthController::class, 'logout']);
     });
 });

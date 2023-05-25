@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -59,6 +58,14 @@ class AuthController extends Controller
         auth()->user()->tokens()->delete();
         return response([
             'message' => 'logged out'
+        ]);
+    }
+
+    public function checkLogin(Request $request)
+    {
+        return response([
+            'user' => auth()->user(),
+            'token' => $request->bearerToken(),
         ]);
     }
 }
